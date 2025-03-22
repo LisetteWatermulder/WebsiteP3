@@ -1,0 +1,130 @@
+/*
+    ///////////////>
+    //>
+    //> SECTION 1:      Home tab
+    //> DESCRIPTION:    The styles for the home (or index) tab
+    //> CONTENTS:       Styling the Welkom, Introduction, Salespitch and Slideshow section of the home page
+    //>
+    ///////////////>
+*/
+
+.home-banner {
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background-image: url(../images/home/banner.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 0% 30%;
+    overflow: hidden;
+
+}
+
+.home-banner h1 {
+    color:#ffffff;
+    font-size: 5rem;;
+    text-shadow:  #535353 0px 0px 10px;    
+}
+
+
+/*
+    ///////////////>
+    //>
+    //> SECTION 1.1:    Home: Introduction
+    //> DESCRIPTION:    This is the introduction part of the homepage
+    //> CONTENTS:       
+    //>
+    ///////////////>
+*/
+
+.section-introduction {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 100px;
+    background: linear-gradient(to top, #b3b3b3 0%, #D4AF37 200%);
+}
+ 
+.introduction-box {
+    display: block;
+    min-width: 400px;
+    max-width: 30vw;
+}
+ 
+.introduction-box h2 {
+    text-align: center;
+    text-shadow:  #535353 0px 0px 15px;
+}
+
+.introduction-box p:nth-of-type(2) {
+    text-align: center;
+    font-style: italic;
+    font-weight: bold;
+}
+ 
+.introduction-img {
+    width: 100%;
+    max-width: 25vw;
+    min-width: 300px;
+    min-height: 400px;
+    height: 30vw;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    border-color: black;
+}
+ 
+.introduction-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 2s ease-in-out;
+    opacity: 1;
+}
+ 
+img.fade-out {
+    opacity: 0;
+}
+
+/*
+    ///////////////>
+    //>
+    //> SECTION 1.2:    Home: Salespitch
+    //> DESCRIPTION:    Style the part of why they have to choose us
+    //> CONTENTS:       
+    //>
+    ///////////////>
+*/
+
+.section-feature {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-flow: row wrap;
+    gap: 20px;
+    padding: 200px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom;
+    border-radius: 10px;
+    background-image: url("../images/home/banner.png")
+}
+
+.feature-box {
+    background-color: #525151;
+    max-width: 400px;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px #000000;
+    text-align: center;
+}
+
+.feature-box h3 {
+    margin-top: 0;
+}
+
+.feature-box p {
+    margin: 15px 0;
+}
