@@ -44,6 +44,8 @@
         }
 
         echo '<title>' . getCurrentPage() .' - Plug & Play</title>';
+
+        require_once 'website-components/handlers.php';
     
     ?>
 

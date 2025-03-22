@@ -34,6 +34,7 @@
 
                 <?php else: ?>
 
+                    <?php echo "<script>console.log(" . $_SESSION["loggedin"] . ")</script>"; ?>
                     <!-- CASE2: the user is not considered logged in, show the link to the login page -->
                     <li><a href="../inloggen.php" aria-label="inloggen">Inloggen</a></li>
 
