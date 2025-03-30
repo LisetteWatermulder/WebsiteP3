@@ -1,10 +1,3 @@
-<?php
-
-    require 'website-components/handlers.php';
-    require 'website-components/account-management/credentials.php';
-    
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,7 +12,7 @@
             <div>
 
                 <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true): 
-                    header("Location: index.php"); ?>
+                    header("Location: " . $_SESSION['lastPage']); ?>
                 <?php endif; ?>
 
             </div>
@@ -46,12 +39,13 @@
                         <input type="submit" name="login" value="Login">
                         
                     </form>
+                    <a href="account-management/register.php" class="register">Niet geregistreerd, registreer hier!</a>
 
                 </div>
 
             </section>
-            <?php if (isset($errorMessage))
-                echo "<p class='errormessage'>$errorMessage</p>"; ?>
+            <?php if (isset($_SESSION['errorMessage']))
+                echo "<p class='errormessage'>" . $_SESSION['errorMessage'] . "</p>"; ?>
 
         <?php endif; ?>
 

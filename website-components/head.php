@@ -6,13 +6,15 @@
     <meta name="description"
         content="Huur een powerbank bij de populairste events in Nederland. Altijd Opgeladen, Altijd Onderweg.">
 
-    <link rel="icon" type="image/ico" href="../images/global/favicon.ico">
+    <link rel="icon" type="image/ico" href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/images/global/favicon.ico">
 
     <!-- Import the Style and JavaScript functions -->
-    <link rel="stylesheet" type="text/css" href="css/global.css">
+    <link rel="stylesheet" type="text/css" href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/css/global.css">
     <?php
 
-        require_once 'script/php/global-functions.php';
+        session_start();
+
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/script/php/global-functions.php';
     
         switch ( getCurrentPage() ) {
 
@@ -35,6 +37,7 @@
 
             case 'Inloggen':
                 echo '<link rel="stylesheet" type="text/css" href="css/inloggen.css">';
+                require_once $_SERVER['DOCUMENT_ROOT'] . '/account-management/handlers.php';
                 break;
             
             default:
@@ -45,8 +48,21 @@
 
         echo '<title>' . getCurrentPage() .' - Plug & Play</title>';
 
-        require_once 'website-components/handlers.php';
+        $_SESSION['previousPageAction'] = $_SESSION['currentPage'];
+        $_SESSION['currentPage'] = basename($_SERVER['PHP_SELF']);
+        if ($_SESSION['previousPageAction'] != $_SESSION['currentPage'] && $_SESSION['previousPageAction'] != 'inloggen.php' && $_SESSION['previousPageAction'] != 'registreren.php') {
+            $_SESSION['lastPage'] = $_SESSION['previousPageAction'];
+        }
+        
     
     ?>
+
+    <?php echo "<script>console.log(" . $_SESSION['loggedin'] . ");</script>"; ?>
+
+    <!-- Import the JavaScript functions -->
+    <script src="script/js/general.js" type="text/javascript"></script>
+
+    <!-- Automatically logout the user in 30 minutes -->
+    <script>if (<?php echo isset($_SESSION['loggedin']) && null != $_SESSION['loggedin'] && $_SESSION['loggedin'] == true ? 'true' : 'false'; ?> === true) { SetAutoLogout(30) }</script>
 
 </head>

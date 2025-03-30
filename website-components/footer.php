@@ -13,16 +13,16 @@
     <div class="social-icons">
 
         <a href="https://www.facebook.com" target="_blank">
-            <img src="images/global/facebook-icon.png" alt="Facebook" class="social-icon">
+            <img src="<?php $_SERVER['DOCUMENT_ROOT'] ?>/images/global/facebook-icon.png" alt="Facebook" class="social-icon">
         </a>
         <a href="https://www.youtube.com" target="_blank">
-            <img src="images/global/youtube-icon.png" alt="Youtube" class="social-icon">
+            <img src="<?php $_SERVER['DOCUMENT_ROOT'] ?>/images/global/youtube-icon.png" alt="Youtube" class="social-icon">
         </a>
         <a href="https://www.instagram.com" target="_blank">
-            <img src="images/global/instagram-icon.png" alt="Instagram" class="social-icon">
+            <img src="<?php $_SERVER['DOCUMENT_ROOT'] ?>/images/global/instagram-icon.png" alt="Instagram" class="social-icon">
         </a>
         <a href="https://www.linkedin.com" target="_blank">
-            <img src="images/global/linkedin-icon.png" alt="LinkedIn" class="social-icon">
+            <img src="<?php $_SERVER['DOCUMENT_ROOT'] ?>/images/global/linkedin-icon.png" alt="LinkedIn" class="social-icon">
         </a>
 
     </div>

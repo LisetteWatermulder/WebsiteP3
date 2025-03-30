@@ -11,11 +11,14 @@
             }
 
             echo "<div class='Product'>";
-            $productName = explode('.', $file)[0];
-            $productCleanName = ucwords( str_replace( ['-', '_'], ' ', $productName ) );
-            echo "<h2 class='ProductTitle'>$productCleanName</h2>";
-            echo "<img class='ProductImage' src='$Path/$productName.jpg' alt='$productCleanName'>";
-            require_once "$Path/$file";
+
+                $productName = explode('.', $file)[0];
+                $productCleanName = ucwords( str_replace( ['-', '_'], ' ', $productName ) );
+                echo "<h2 class='ProductTitle'>$productCleanName</h2>";
+                echo "<img class='ProductImage' src='$Path/$productName.jpg' alt='$productCleanName'>";
+                require_once "$Path/$file";
+                echo "<button class='ProductButton' onclick='window.location.href=" . '"bestellen.php?product=' . $productName . '"' . "'>Huur Nu</button>";
+
             echo "</div>";
 
 
