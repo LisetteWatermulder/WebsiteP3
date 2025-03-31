@@ -1,10 +1,5 @@
 <?php
 
-// Ensure session is initialized
-if (!isset($_SESSION['loggedin'])) {
-    $_SESSION['loggedin'] = false;
-}
-
 require_once 'credentials.php';
 
 class gebruiker
@@ -196,26 +191,6 @@ class systemhandler
         
 
     }
-}
-
-$database = new Database('localhost', 'sdegier', 'kESbWFwGLY9Dqo', 'PlugAndPlay');
-$_SESSION['dbConnection'] = $database->connect();
-
-// Handle login
-if (isset($_POST['login'])) {
-
-    $gebruikersnaam = $_POST['gebruikersnaam'];
-    $wachtwoord = $_POST['wachtwoord'];
-    $gebruiker = new gebruiker($gebruikersnaam, $wachtwoord);
-
-    if ($gebruiker->login($gebruikersnaam, $wachtwoord)) {
-        /* die('Logged in'); */
-        $_SESSION['loggedin'] = true;
-        $_SESSION['gebruiker'] = $gebruikersnaam;
-    } else {
-        $_SESSION['errorMessage'] = "Ongeldige gebruikersnaam of wachtwoord.";
-    }
-
 }
 
 // Handle payment and QR code generation

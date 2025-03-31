@@ -1,3 +1,30 @@
+<?php
+
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/account-management/credentials.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/account-management/handlers.php';
+
+    $database = new Database('localhost', 'dbuser', 'LkC9STj5n6bztQ', 'PlugAndPlay');
+    $_SESSION['dbConnection'] = $database->connect();
+    // Handle login
+    if ( isset($_POST['login']) && (!isset($_COOKIE['isLoggedIn']) || $_COOKIE['isLoggedIn'] === false) ) {
+
+        $gebruikersnaam = $_POST['gebruikersnaam'];
+        $wachtwoord = $_POST['wachtwoord'];
+        $gebruiker = new gebruiker($gebruikersnaam, $wachtwoord);
+        if ($gebruiker->login($gebruikersnaam, $wachtwoord)) {
+
+            setcookie("isLoggedIn", true, time() + 3600, "/");
+            setcookie("username", $gebruikersnaam, time() + 3600, "/");
+            header("Location: index.php");
+
+        } else {
+            $errorMessage = "Ongeldige gebruikersnaam of wachtwoord.";
+        }
+
+    }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,7 +38,7 @@
 
             <div>
 
-                <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true): 
+                <?php if (isset($_COOKIE['isLoggedIn']) && $_COOKIE['isLoggedIn'] === true): 
                     header("Location: " . $_SESSION['lastPage']); ?>
                 <?php endif; ?>
 
@@ -19,7 +46,7 @@
 
         </section>
 
-        <?php if (!isset($_SESSION['loggedin']) || !$_SESSION['loggedin']): ?>
+        <?php if (!isset($_COOKIE['isLoggedIn']) || !$_COOKIE['isLoggedIn']): ?>
 
             <!-- Login Form -->
             <section class="inlog-form">
@@ -39,13 +66,13 @@
                         <input type="submit" name="login" value="Login">
                         
                     </form>
-                    <a href="account-management/register.php" class="register">Niet geregistreerd, registreer hier!</a>
+                    <a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/account-management/register.php" class="register">Niet geregistreerd, registreer hier!</a>
 
                 </div>
 
             </section>
-            <?php if (isset($_SESSION['errorMessage']))
-                echo "<p class='errormessage'>" . $_SESSION['errorMessage'] . "</p>"; ?>
+            <?php if (isset($errorMessage))
+                echo "<p class='errormessage'>$errorMessage</p>"; ?>
 
         <?php endif; ?>
 

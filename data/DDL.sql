@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `Product` (
     `Price` DECIMAL(10,2),
     `ProductName` VARCHAR(50) PRIMARY KEY,
     `Status` VARCHAR(50),
-    `Supplier` VARCHAR(40), --dit was INT maar dat is niet goed, dit moet VARCHAR(40) zijn omdat het een foreign key is naar de supplier tabel
+    `Supplier` VARCHAR(40), -- dit was INT maar dat is niet goed, dit moet VARCHAR(40) zijn omdat het een foreign key is naar de supplier tabel
     
     -- The foreign key will be updated if the supplier number is updated because we need to be able to change the supplier number in the product table if the supplier number is changed in the supplier table
     -- The foreign key will be restricted if the supplier number is deleted because we don't want to delete the supplier number in the product table if the product still exists

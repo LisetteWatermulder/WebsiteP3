@@ -21,12 +21,12 @@
             <li>
 
                 <!-- Check if loggedin is null and check if it is set to true -->
-                <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true): ?>
+                <?php if (isset($_COOKIE['isLoggedIn']) && $_COOKIE['isLoggedIn'] == true): ?>
 
                     <!-- CASE1: the user is considered logged in, show the link to the login page as the username and add an extra link to log out -->
                     <li>
                         <a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/index.php" aria-label="ingelogd">
-                        <?php echo $gebruiker->getgebruikersnaam(); ?></a>
+                        <?php echo $_COOKIE['username']; ?></a>
                     </li>
                     <li>
                         <a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/account-management/uitloggen.php" aria-label="uitloggen">uitloggen</a>

@@ -5,7 +5,7 @@
 
     <?php
 
-        if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+        if (!isset($_COOKIE['isLoggedIn']) || $_COOKIE['isLoggedIn'] === false) {
             // Store product in cart before redirecting
             if (isset($_GET['product'])) {
                 if (!isset($_SESSION['shoppingCart'])) {

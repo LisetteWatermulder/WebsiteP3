@@ -24,7 +24,6 @@
 
             case 'Producten Diensten':
                 echo '<link rel="stylesheet" type="text/css" href="css/producten-diensten.css">';
-                echo '<script src="script/js/producten-diensten.js" type="text/javascript"></script>';
                 break;
 
             case 'Over Ons':
@@ -46,6 +45,8 @@
 
         }
 
+        /* echo "<script>console.log('" . $_COOKIE['username'] . "')</script>"; */
+
         echo '<title>' . getCurrentPage() .' - Plug & Play</title>';
 
         $_SESSION['previousPageAction'] = $_SESSION['currentPage'];
@@ -57,12 +58,10 @@
     
     ?>
 
-    <?php echo "<script>console.log(" . $_SESSION['loggedin'] . ");</script>"; ?>
-
     <!-- Import the JavaScript functions -->
     <script src="script/js/general.js" type="text/javascript"></script>
 
     <!-- Automatically logout the user in 30 minutes -->
-    <script>if (<?php echo isset($_SESSION['loggedin']) && null != $_SESSION['loggedin'] && $_SESSION['loggedin'] == true ? 'true' : 'false'; ?> === true) { SetAutoLogout(30) }</script>
+    <script>if (<?php echo isset($_COOKIE['isLoggedIn']) && null != $_COOKIE['isLoggedIn'] && $_COOKIE['isLoggedIn'] == true ? 'true' : 'false'; ?> === true) { SetAutoLogout(60) }</script>
 
 </head>
