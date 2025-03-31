@@ -14,13 +14,13 @@ CREATE TABLE IF NOT EXISTS `Supplier` (
     `Address` VARCHAR(80),
     `Country` VARCHAR(50),
     `SalesPerson` VARCHAR(40),
-    `SupplierName` VARCHAR(40) PRIMARY KEY,
+    `SupplierName` VARCHAR(40) PRIMARY KEY
 
 );
 
 CREATE TABLE IF NOT EXISTS `Product` (
 
-    `Available` BOOL,
+    `Available` TINYINT(1),
     `Price` DECIMAL(10,2),
     `ProductName` VARCHAR(50) PRIMARY KEY,
     `Status` VARCHAR(50),
@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `Order` (
     `Address` VARCHAR(80),
 
     CONSTRAINT FK_Order FOREIGN KEY(`UserName`,`Address`) REFERENCES User(`UserName`, `Address`)/*  ON UPDATE RESTRICT ON DELETE RESTRICT */
-
+    
 );
 
 CREATE TABLE IF NOT EXISTS `Order_Product` (
@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS `Order_Product` (
 
     CONSTRAINT PK_OrderProduct PRIMARY KEY (`ProductName`, `ReferenceNumber`),
 
-    CONSTRAINT FK_OrderProduct_Product FOREIGN KEY (`ProductName`) REFERENCES Product(`ProductName`) ON UPDATE CASCADE ON DELETE SET NULL,
-    CONSTRAINT FK_OrderProduct_Order FOREIGN KEY (`ReferenceNumber`) REFERENCES `Order`(`ReferenceNumber`) ON UPDATE RESTRICT ON DELETE SET NULL
+    CONSTRAINT FK_OrderProduct_Product FOREIGN KEY (`ProductName`) REFERENCES `Product`(`ProductName`) ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT FK_OrderProduct_Order FOREIGN KEY (`ReferenceNumber`) REFERENCES `Order`(`ReferenceNumber`) ON UPDATE RESTRICT ON DELETE CASCADE
 
 );
