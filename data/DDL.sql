@@ -11,10 +11,14 @@ DROP TABLE IF EXISTS `Order_Product`; */
  
 CREATE TABLE IF NOT EXISTS `Supplier` (
 
+
+
     `Address` VARCHAR(80),
     `Country` VARCHAR(50),
     `SalesPerson` VARCHAR(40),
-    `SupplierName` VARCHAR(40) PRIMARY KEY
+    `SupplierName` VARCHAR(40) PRIMARY KEY 
+    --Supplier naam kan veranderen en is dus geen goede primary key
+    --`Supplierid` INT PRIMARY KEY AUTO_INCREMENT, -- Dit is een auto increment en kan dus niet veranderen, maar is niet uniek in de database
 
 );
 
@@ -24,11 +28,12 @@ CREATE TABLE IF NOT EXISTS `Product` (
     `Price` DECIMAL(10,2),
     `ProductName` VARCHAR(50) PRIMARY KEY,
     `Status` VARCHAR(50),
-    `Supplier` INT,
+    `Supplier` VARCHAR(40), --dit was INT maar dat is niet goed, dit moet VARCHAR(40) zijn omdat het een foreign key is naar de supplier tabel
     
     -- The foreign key will be updated if the supplier number is updated because we need to be able to change the supplier number in the product table if the supplier number is changed in the supplier table
     -- The foreign key will be restricted if the supplier number is deleted because we don't want to delete the supplier number in the product table if the product still exists
-    CONSTRAINT FK_Product FOREIGN KEY(`Supplier`) REFERENCES Supplier(`SupplierName`) ON UPDATE CASCADE /* ON DELETE RESTRICT */
+    CONSTRAINT FK_Product FOREIGN KEY(`Supplier`) REFERENCES Supplier(`SupplierName`) ON UPDATE CASCADE 
+    -- Kunnen hier ook kiezen voor een supplierid gezien de supplier naam kan veranderen
 
 );
 
@@ -74,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `Order` (
     `Address` VARCHAR(80),
 
     CONSTRAINT FK_Order FOREIGN KEY(`UserName`,`Address`) REFERENCES User(`UserName`, `Address`)/*  ON UPDATE RESTRICT ON DELETE RESTRICT */
-    
+
 );
 
 CREATE TABLE IF NOT EXISTS `Order_Product` (
