@@ -10,7 +10,7 @@ class gebruiker
     private $rol;
 
     // Constructor to initialize the user's properties
-    public function __construct($gebruikersnaam, $wachtwoord/* , $rol */)
+    public function __construct($gebruikersnaam, $wachtwoord /*, $rol */)
     {
         $this->gebruikersnaam = $gebruikersnaam;
         $this->wachtwoord = $wachtwoord;
@@ -24,9 +24,61 @@ class gebruiker
     }
 
     // Setter for gebruikersnaam
-    public function setgebruikersnaam($gebruikersnaam)
+    public function editUser(string $gebruikersnaam = "", string $wachtwoord = "", string $voornaam = "", string $achternaam = "", string $adres = "", string $geboortedatum = "", string $voorkeurslocatie = "", string $emailadres = "")
     {
-        $this->gebruikersnaam = $gebruikersnaam;
+
+        $paramCount = 0;
+        $params = [$gebruikersnaam, $wachtwoord, $voornaam, $achternaam, $adres, $geboortedatum, $voorkeurslocatie, $emailadres];
+
+        foreach ($params as $param) {
+            if (isset($param) && !empty($param)) {
+                $paramCount++;
+            }
+        }
+
+        if ($paramCount > 1) {
+            throw new Exception("Only one parameter should be modified at a time");
+        }
+
+        if ($paramCount === 0) {
+            return false;
+        }
+        
+        if (!isset($_SESSION['dbConnection'])) {
+            die('Database connection not found in session');
+        }
+
+        $connection = $_SESSION["dbConnection"];
+
+        if ( isset($gebruikersnaam) ) {
+            $result = $connection->prepare("UPDATE `User` set 'UserName' = '$gebruikersnaam' WHERE `UserName` = '$this->gebruikersnaam'");
+        }
+        else if ( isset($wachtwoord) ) {
+            $passwordHash = password_hash($wachtwoord, PASSWORD_DEFAULT);
+            $result = $connection->prepare("UPDATE `User` set 'PasswordHash' = '$passwordHash' WHERE `UserName` = '$this->gebruikersnaam'");
+        }
+        else if ( isset($voornaam) ) {
+            $result = $connection->prepare("UPDATE `User` set 'FirstName' = '$voornaam' WHERE `UserName` = '$this->gebruikersnaam'");
+        }
+        else if ( isset($achternaam) ) {
+            $result = $connection->prepare("UPDATE `User` set 'LastName' = '$achternaam' WHERE `UserName` = '$this->gebruikersnaam'");
+        }
+        else if ( isset($adres) ) {
+            $result = $connection->prepare("UPDATE `User` set 'Address' = '$adres' WHERE `UserName` = '$this->gebruikersnaam'");
+        }
+        else if ( isset($geboortedatum) ) {
+            $result = $connection->prepare("UPDATE `User` set 'DateOfBirth' = '$geboortedatum' WHERE `UserName` = '$this->gebruikersnaam'");
+        }
+        else if ( isset($voorkeurslocatie) ) {
+            $result = $connection->prepare("UPDATE `User` set 'PreferredLocation' = '$voorkeurslocatie' WHERE `UserName` = '$this->gebruikersnaam'");
+        }
+        else if ( isset($emailadres) ) {
+            $result = $connection->prepare("UPDATE `User` set 'EmailAddress' = '$emailadres' WHERE `UserName` = '$this->gebruikersnaam'");
+        }
+        
+        $result->execute();
+        return $result->fetch();
+
     }
 
     // Getter for wachtwoord
@@ -38,7 +90,22 @@ class gebruiker
     // Setter for wachtwoord
     public function setWachtwoord($wachtwoord): void
     {
+        /* password_hash($this->wachtwoord, PASSWORD_DEFAULT) */
         $this->wachtwoord = $wachtwoord;
+    }
+
+    public function checkPassword($minCharacterRequired = 8): bool {
+
+        if ( !isset($this->wachtwoord) ) {
+            return false;
+        }
+
+        if ($minCharacterRequired > $this->wachtwoord) {
+            return false;
+        }
+
+        return true;
+
     }
 
     // Getter for locatie
@@ -56,7 +123,7 @@ class gebruiker
     public function login()
     {
 
-        $dbUser = $this->searchUser($this->gebruikersnaam);
+        $dbUser = $this->searchUser();
         if ($dbUser) {
 
             if ( password_verify($this->wachtwoord, $dbUser['PasswordHash']) ) {
@@ -70,16 +137,29 @@ class gebruiker
 
     }
 
-    public function searchUser(string $gebruikersnaam) {
+    public function searchUser() {
 
         if (!isset($_SESSION['dbConnection'])) {
             die('Database connection not found in session');
         }
 
         $connection = $_SESSION["dbConnection"];
-        $result = $connection->prepare("SELECT * FROM `User` WHERE UserName = '$gebruikersnaam'");
+        $result = $connection->prepare("SELECT * FROM `User` WHERE UserName = '$this->gebruikersnaam'");
         $result->execute();
         return $result->fetch();
+
+    }
+
+    public function newUser(string $gebruikersnaam, string $wachtwoord, string $voornaam, string $achternaam, string $mail, string $geboortedatum, string $adres)
+    {
+
+        if (!isset($_SESSION['dbConnection'])) {
+            die('Database connection not found in session');
+        }
+
+        $connection = $_SESSION["dbConnection"];
+        $stmt = $connection->prepare("INSERT INTO `User` (UserName, PasswordHash, FirstName, LastName, EmailAddress, BirthDate, Address) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        return $stmt->execute([$gebruikersnaam, password_hash($wachtwoord, PASSWORD_DEFAULT), $voornaam, $achternaam, $mail, $geboortedatum, $adres]);
 
     }
 
@@ -192,6 +272,9 @@ class systemhandler
 
     }
 }
+
+$database = new Database('localhost', 'dbuser', 'LkC9STj5n6bztQ', 'PlugAndPlay');
+$_SESSION['dbConnection'] = $database->connect();
 
 // Handle payment and QR code generation
 /* if (isset($_POST['pay'])) {

@@ -1,7 +1,8 @@
 <?php
 
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/account-management/credentials.php';
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/account-management/handlers.php';
+    session_start();
+
+    require_once $_SESSION['rootPath'] . '/account-management/handlers.php';
 
     $database = new Database('localhost', 'dbuser', 'LkC9STj5n6bztQ', 'PlugAndPlay');
     $_SESSION['dbConnection'] = $database->connect();
@@ -15,7 +16,7 @@
 
             setcookie("isLoggedIn", true, time() + 3600, "/");
             setcookie("username", $gebruikersnaam, time() + 3600, "/");
-            header("Location: index.php");
+            header("Location: ../" . $_SESSION['lastPage']);
 
         } else {
             $errorMessage = "Ongeldige gebruikersnaam of wachtwoord.";
@@ -58,15 +59,15 @@
                     <form method="POST" action="">
 
                         <label for="gebruikersnaam">Gebruikersnaam:</label><br>
-                        <input type="text" name="gebruikersnaam" id="gebruikersnaam" required><br><br>
+                        <input type="text" name="gebruikersnaam" id="gebruikersnaam" placeholder="Gebruikersnaam" required><br><br>
 
                         <label for="wachtwoord">Wachtwoord:</label><br>
-                        <input type="password" name="wachtwoord" id="wachtwoord" required><br><br>
+                        <input type="password" name="wachtwoord" id="wachtwoord" placeholder="Wachtwoord" required><br><br>
 
                         <input type="submit" name="login" value="Login">
                         
                     </form>
-                    <a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/account-management/register.php" class="register">Niet geregistreerd, registreer hier!</a>
+                    <a href="<?php $_SESSION['rootPath'] ?>/account-management/register.php" class="register">Niet geregistreerd, registreer hier!</a>
 
                 </div>
 
