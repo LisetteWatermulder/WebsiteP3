@@ -13,7 +13,12 @@
                 <a href="<?php $_SESSION['rootPath'] ?>/over-ons.php" aria-label="over ons">Over Ons</a>
             </li>
             <li>
+<<<<<<< HEAD
                 <a href="<?php $_SESSION['rootPath'] ?>/producten-diensten.php" aria-label="producten en diensten">Producten en Diensten</a>
+=======
+                <a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/producten-diensten.php"
+                    aria-label="producten en diensten">Producten en Diensten</a>
+>>>>>>> 81e8631 (Apply formatting/fixes to sql and website)
             </li>
             <li>
                 <a href="<?php $_SESSION['rootPath'] ?>/contact.php" aria-label="contact">Contact</a>
@@ -24,6 +29,7 @@
                 <?php if (isset($_COOKIE['isLoggedIn']) && $_COOKIE['isLoggedIn'] == true): ?>
 
                     <!-- CASE1: the user is considered logged in, show the link to the login page as the username and add an extra link to log out -->
+<<<<<<< HEAD
                     <li>
                         <a href="<?php $_SESSION['rootPath'] ?>/account-management/account.php" aria-label="ingelogd">
                         <?php echo $_COOKIE['username']; ?></a>
@@ -31,13 +37,28 @@
                     <li>
                         <a href="<?php $_SESSION['rootPath'] ?>/account-management/uitloggen.php" aria-label="uitloggen">Uitloggen</a>
                     </li>
+=======
+                <li>
+                    <a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/index.php" aria-label="ingelogd">
+                        <?php echo $_COOKIE['username']; ?></a>
+                </li>
+                <li>
+                    <a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/account-management/uitloggen.php"
+                        aria-label="uitloggen">uitloggen</a>
+                </li>
+>>>>>>> 81e8631 (Apply formatting/fixes to sql and website)
 
-                <?php else: ?>
+            <?php else: ?>
 
+<<<<<<< HEAD
                     <!-- CASE2: the user is not considered logged in, show the link to the login page -->
                     <li><a href="<?php $_SESSION['rootPath'] ?>/inloggen.php" aria-label="inloggen">Inloggen</a></li>
+=======
+                <!-- CASE2: the user is not considered logged in, show the link to the login page -->
+                <li><a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/inloggen.php" aria-label="inloggen">Inloggen</a></li>
+>>>>>>> 81e8631 (Apply formatting/fixes to sql and website)
 
-                <?php endif; ?>
+            <?php endif; ?>
 
             </li>
 
