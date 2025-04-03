@@ -12,50 +12,50 @@
     <link rel="stylesheet" type="text/css" href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/css/global.css">
     <?php
 
-        session_start();
+    session_start();
 
-        require_once $_SERVER['DOCUMENT_ROOT'] . '/script/php/global-functions.php';
-    
-        switch ( getCurrentPage() ) {
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/script/php/global-functions.php';
 
-            case 'Home':
-                echo '<link rel="stylesheet" type="text/css" href="css/home.css">';
-                break;
+    switch (getCurrentPage()) {
 
-            case 'Producten Diensten':
-                echo '<link rel="stylesheet" type="text/css" href="css/producten-diensten.css">';
-                break;
+        case 'Home':
+            echo '<link rel="stylesheet" type="text/css" href="css/home.css">';
+            break;
 
-            case 'Over Ons':
-                echo '<link rel="stylesheet" type="text/css" href="css/over-ons.css">';
-                break;
+        case 'Producten Diensten':
+            echo '<link rel="stylesheet" type="text/css" href="css/producten-diensten.css">';
+            break;
 
-            case 'Contact':
-                echo '<link rel="stylesheet" type="text/css" href="css/contact.css">';
-                break;
+        case 'Over Ons':
+            echo '<link rel="stylesheet" type="text/css" href="css/over-ons.css">';
+            break;
 
-            case 'Inloggen':
-                echo '<link rel="stylesheet" type="text/css" href="css/inloggen.css">';
-                require_once $_SERVER['DOCUMENT_ROOT'] . '/account-management/handlers.php';
-                break;
-            
-            default:
-                error_log("No stylesheet has been found for the current page: " . getCurrentPage());
-                break;
+        case 'Contact':
+            echo '<link rel="stylesheet" type="text/css" href="css/contact.css">';
+            break;
 
-        }
+        case 'Inloggen':
+            echo '<link rel="stylesheet" type="text/css" href="css/inloggen.css">';
+            require_once $_SERVER['DOCUMENT_ROOT'] . '/account-management/handlers.php';
+            break;
 
-        /* echo "<script>console.log('" . $_COOKIE['username'] . "')</script>"; */
+        default:
+            error_log("No stylesheet has been found for the current page: " . getCurrentPage());
+            break;
 
-        echo '<title>' . getCurrentPage() .' - Plug & Play</title>';
+    }
 
-        $_SESSION['previousPageAction'] = $_SESSION['currentPage'];
-        $_SESSION['currentPage'] = basename($_SERVER['PHP_SELF']);
-        if ($_SESSION['previousPageAction'] != $_SESSION['currentPage'] && $_SESSION['previousPageAction'] != 'inloggen.php' && $_SESSION['previousPageAction'] != 'registreren.php') {
-            $_SESSION['lastPage'] = $_SESSION['previousPageAction'];
-        }
-        
-    
+    /* echo "<script>console.log('" . $_COOKIE['username'] . "')</script>"; */
+
+    echo '<title>' . getCurrentPage() . ' - Plug & Play</title>';
+
+    $_SESSION['previousPageAction'] = $_SESSION['currentPage'];
+    $_SESSION['currentPage'] = basename($_SERVER['PHP_SELF']);
+    if ($_SESSION['previousPageAction'] != $_SESSION['currentPage'] && $_SESSION['previousPageAction'] != 'inloggen.php' && $_SESSION['previousPageAction'] != 'registreren.php') {
+        $_SESSION['lastPage'] = $_SESSION['previousPageAction'];
+    }
+
+
     ?>
 
     <!-- Import the JavaScript functions -->
