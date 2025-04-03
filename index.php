@@ -1,3 +1,11 @@
+<?php
+require_once 'connector.php'; // Import the connector.php file
+
+// Initialize the database connection
+$db = new Database('localhost', 'dbuser', 'LkC9STj5n6bztQ', 'plugandplay');
+$connection = $db->connect();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,15 +48,35 @@
             <div style="border: 1px solid #ccc; padding: 10px; background: #f9f9f9;">
                 <?php
                 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['query'])) {
-                    $query = htmlspecialchars($_POST['query']);
-                    echo "<strong>Query:</strong> " . $query . "<br><br>";
+                    $query = $_POST['query'];
 
-                    // Example of calling a procedure or querying a website
-                    // Replace this with your actual logic
-                    if ($query === "example") {
-                        echo "This is an example response.";
-                    } else {
-                        echo "No matching procedure found for the query.";
+                    try {
+                        // Execute the query
+                        $stmt = $connection->prepare($query);
+                        $stmt->execute();
+
+                        // Fetch and display results
+                        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                        if ($results) {
+                            echo "<table border='1' cellpadding='5' cellspacing='0'>";
+                            echo "<tr>";
+                            foreach (array_keys($results[0]) as $column) {
+                                echo "<th>" . htmlspecialchars($column) . "</th>";
+                            }
+                            echo "</tr>";
+                            foreach ($results as $row) {
+                                echo "<tr>";
+                                foreach ($row as $value) {
+                                    echo "<td>" . htmlspecialchars($value) . "</td>";
+                                }
+                                echo "</tr>";
+                            }
+                            echo "</table>";
+                        } else {
+                            echo "Query executed successfully, but no results found.";
+                        }
+                    } catch (PDOException $e) {
+                        echo "Error executing query: " . htmlspecialchars($e->getMessage());
                     }
                 } else {
                     echo "Output will appear here.";
@@ -58,4 +86,4 @@
         </div>
     </div>
 </body>
-</html></div></body></html>
+</html>
