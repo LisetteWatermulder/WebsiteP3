@@ -14,7 +14,8 @@ CREATE TABLE
         `Address` VARCHAR(80),
         `Country` VARCHAR(50),
         `SalesPerson` VARCHAR(40),
-        `SupplierName` VARCHAR(40) PRIMARY KEY `PhoneNumber` VARCHAR(30),
+        `SupplierName` VARCHAR(40) PRIMARY KEY, 
+        `PhoneNumber` VARCHAR(30),
         -- Supplier naam kan veranderen en is dus geen goede primary key
         -- `Supplierid` INT PRIMARY KEY AUTO_INCREMENT, -- Dit is een auto increment en kan dus niet veranderen, maar is niet uniek in de database
     );
