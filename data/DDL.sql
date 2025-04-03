@@ -101,3 +101,32 @@ ALTER TABLE `Order`
 ALTER TABLE `Order_Product`        
         ADD CONSTRAINT FK_OrderProduct_Product FOREIGN KEY (`ProductName`) REFERENCES `Product` (`ProductName`) ON UPDATE CASCADE ON DELETE CASCADE,
         ADD CONSTRAINT FK_OrderProduct_Order FOREIGN KEY (`ReferenceNumber`) REFERENCES `Order` (`ReferenceNumber`) ON UPDATE RESTRICT ON DELETE CASCADE;
+
+
+
+DROP PROCEDURE AddProduct; -- Remove the procedure if it already exists
+        DELIMITER //
+
+CREATE PROCEDURE AddProduct (
+    IN ProductName VARCHAR(50),
+    IN Availability TINYINT(1),
+    IN Price DECIMAL(10,2)
+)
+BEGIN
+    INSERT INTO Products (
+        ProductName,
+        Availability,
+        Price
+    )
+    VALUES (
+        ProductName,
+        Availability,
+        Price
+    );
+END //
+
+DELIMITER ;
+
+-- Now you can call the procedure like this:
+CALL AddProduct('Philips A1', 1, 20.00);
+
