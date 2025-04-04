@@ -4,6 +4,8 @@ require_once 'connector.php'; // Import the connector.php file
 // Initialize the database connection
 $db = new Database('localhost', 'dbuser', 'LkC9STj5n6bztQ', 'plugandplay');
 $connection = $db->connect();
+
+$buildDatabaseText = str_replace("'", "\'", str_replace('"', "'", str_replace("\n", '\n', file_get_contents('data/DDL.sql') . '\n\n' . file_get_contents('data/DML.sql'))));
 ?>
 
 <!DOCTYPE html>
@@ -61,6 +63,7 @@ $connection = $db->connect();
         <button onclick="InsertText('query', '-- Verander zelf de waarden die tussen vierkante haakjes staan naar de waarde van de nieuwe gebruiker\nINSERT INTO `User` (`UserName`, `Address`, `DateOfBirth`, `EmailAddress`, `FirstName`, `LastName`, `Password`, `PhoneNumber`, `Role`, `PreferredLocationName`) \nVALUES (\'[Gebruikersnaam]\', \'[Straatnaam + huisnummer]\', \'[Geboortedatum (yyyy-MM-dd)]\', \'[E-mailadres]\', \'[Voornaam]\', \'[Achternaam]\', \'[Wachtwoord]\', \'[Telefoonnummer]\', \'[Rol (Admin of niet)]\', \'[Voorkeurslocatie]\');')">Creëer nieuwe gebruiker</button>
         <button onclick="InsertText('query', '-- Verander zelf de waarden die tussen vierkante haakjes staan naar de waarde van de nieuwe gebruiker\nINSERT INTO `Product` (`ProductName`, `Availability`, `Price`, `Status`, `Description`, `ProviderName`, `StoredLocationName`) \nVALUES (\'[Productnaam]\', [Beschikbaarheid], [Prijs (met punt als komma], \'[Status]\', \'[HTML beschrijving]\', \'[Naam provider]\', \'[Locatie]\');')">Nieuwe locatie</button>
         <button onclick="InsertText('query', '-- Verander zelf de gebruikersnaam die tussen vierkante haakjes staan naar de waarde van de nieuwe gebruiker\nDELETE FROM `User` WHERE UserName = \'[Gebruikersnaam]\';')">Verwijder gebruiker</button>
+        <button onclick="InsertText('query', '<?php echo $buildDatabaseText; ?>')">Creëer database</button>
     </div>
     <div class="form-container">
         <form method="POST" action="">
