@@ -15,7 +15,6 @@
     <link rel="stylesheet" type="text/css" href="<?php $_SESSION['rootPath'] ?>/css/global.css">
     <?php
 
-<<<<<<< HEAD
         require_once $_SESSION['rootPath'] . '/script/php/global-functions.php';
     
         switch ( getCurrentPage() ) {
@@ -56,40 +55,6 @@
                 error_log("No stylesheet has been found for the current page: " . getCurrentPage());
                 echo '<script src="script/js/general.js" type="text/javascript"></script>';
                 break;
-=======
-    session_start();
-
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/script/php/global-functions.php';
-
-    switch (getCurrentPage()) {
-
-        case 'Home':
-            echo '<link rel="stylesheet" type="text/css" href="css/home.css">';
-            break;
-
-        case 'Producten Diensten':
-            echo '<link rel="stylesheet" type="text/css" href="css/producten-diensten.css">';
-            break;
-
-        case 'Over Ons':
-            echo '<link rel="stylesheet" type="text/css" href="css/over-ons.css">';
-            break;
-
-        case 'Contact':
-            echo '<link rel="stylesheet" type="text/css" href="css/contact.css">';
-            break;
->>>>>>> 81e8631 (Apply formatting/fixes to sql and website)
-
-        case 'Inloggen':
-            echo '<link rel="stylesheet" type="text/css" href="css/inloggen.css">';
-            require_once $_SERVER['DOCUMENT_ROOT'] . '/account-management/handlers.php';
-            break;
-
-        default:
-            error_log("No stylesheet has been found for the current page: " . getCurrentPage());
-            break;
-
-    }
 
     /* echo "<script>console.log('" . $_COOKIE['username'] . "')</script>"; */
 
@@ -101,8 +66,6 @@
         $_SESSION['lastPage'] = $_SESSION['previousPageAction'];
     }
 
-
-<<<<<<< HEAD
         $_SESSION['previousPageAction'] = $_SESSION['currentPage'];
         $_SESSION['currentPage'] = basename($_SERVER['PHP_SELF']);
         if ($_SESSION['previousPageAction'] != $_SESSION['currentPage'] && $_SESSION['previousPageAction'] != 'inloggen.php' && $_SESSION['previousPageAction'] != 'registreren.php') {
@@ -119,9 +82,6 @@
 
         $mail = new PHPMailer(true);
         
-    
-=======
->>>>>>> 81e8631 (Apply formatting/fixes to sql and website)
     ?>
 
     <!-- Automatically logout the user in 30 minutes -->

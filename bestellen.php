@@ -37,28 +37,17 @@ if (!isset($_COOKIE['isLoggedIn']) || $_COOKIE['isLoggedIn'] === false) {
         echo $item;
 
     }
-
-    ?>
-
-    <?php include 'website-components/footer.php'; ?>
-
-<<<<<<< HEAD
-        <?php include 'website-components/header.php'; ?>
-        
-        <?php
-
-            if (!isset($_SESSION['shoppingCart'])) {
-                $_SESSION['shoppingCart'] = array();
-            }
-
+  
             if (!in_array($_GET['product'], $_SESSION['shoppingCart'])) {
 
                 $productName = ucwords( str_replace( ['-', '_'], ' ', $_GET['product'] ) );
                 $_SESSION['shoppingCart'][$productName] = 1;
-
             }
 
-        ?>
+    ?>
+
+
+</body>
 
         <div>
 
@@ -78,10 +67,7 @@ if (!isset($_COOKIE['isLoggedIn']) || $_COOKIE['isLoggedIn'] === false) {
         </div>
         
         <?php include 'website-components/footer.php'; ?>
-
-    </body>
-=======
+  
 </body>
->>>>>>> 81e8631 (Apply formatting/fixes to sql and website)
 
 </html>

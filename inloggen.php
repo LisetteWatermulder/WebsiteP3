@@ -1,13 +1,8 @@
 <?php
 
-<<<<<<< HEAD
     session_start();
 
     require_once $_SESSION['rootPath'] . '/account-management/handlers.php';
-=======
-require_once $_SERVER['DOCUMENT_ROOT'] . '/account-management/credentials.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/account-management/handlers.php';
->>>>>>> 81e8631 (Apply formatting/fixes to sql and website)
 
 $database = new Database('localhost', 'dbuser', 'LkC9STj5n6bztQ', 'PlugAndPlay');
 $_SESSION['dbConnection'] = $database->connect();
@@ -19,19 +14,9 @@ if (isset($_POST['login']) && (!isset($_COOKIE['isLoggedIn']) || $_COOKIE['isLog
     $gebruiker = new gebruiker($gebruikersnaam, $wachtwoord);
     if ($gebruiker->login($gebruikersnaam, $wachtwoord)) {
 
-<<<<<<< HEAD
-            setcookie("isLoggedIn", true, time() + 3600, "/");
-            setcookie("username", $gebruikersnaam, time() + 3600, "/");
-            header("Location: ../" . $_SESSION['lastPage']);
-
-        } else {
-            $errorMessage = "Ongeldige gebruikersnaam of wachtwoord.";
-        }
-=======
         setcookie("isLoggedIn", true, time() + 3600, "/");
         setcookie("username", $gebruikersnaam, time() + 3600, "/");
         header("Location: index.php");
->>>>>>> 81e8631 (Apply formatting/fixes to sql and website)
 
     } else {
         $errorMessage = "Ongeldige gebruikersnaam of wachtwoord.";
@@ -73,35 +58,6 @@ if (isset($_POST['login']) && (!isset($_COOKIE['isLoggedIn']) || $_COOKIE['isLog
                 <h2>Login</h2>
                 <form method="POST" action="">
 
-                    <label for="gebruikersnaam">Gebruikersnaam:</label><br>
-                    <input type="text" name="gebruikersnaam" id="gebruikersnaam" required><br><br>
-
-                    <label for="wachtwoord">Wachtwoord:</label><br>
-                    <input type="password" name="wachtwoord" id="wachtwoord" required><br><br>
-
-                    <input type="submit" name="login" value="Login">
-
-                </form>
-                <a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/account-management/register.php" class="register">Niet
-                    geregistreerd, registreer hier!</a>
-
-            </div>
-
-        </section>
-        <?php if (isset($errorMessage))
-            echo "<p class='errormessage'>$errorMessage</p>"; ?>
-
-    <?php endif; ?>
-
-    <?php include 'website-components/footer.php'; ?>
-
-<<<<<<< HEAD
-                <h1>Inloggen</h1>
-                <div class="inlog-info-form">
-
-                    <h2>Login</h2>
-                    <form method="POST" action="">
-
                         <label for="gebruikersnaam">Gebruikersnaam:</label><br>
                         <input type="text" name="gebruikersnaam" id="gebruikersnaam" placeholder="Gebruikersnaam" required><br><br>
 
@@ -113,19 +69,16 @@ if (isset($_POST['login']) && (!isset($_COOKIE['isLoggedIn']) || $_COOKIE['isLog
                     </form>
                     <a href="<?php $_SESSION['rootPath'] ?>/account-management/register.php" class="register">Niet geregistreerd, registreer hier!</a>
 
-                </div>
+            </div>
 
-            </section>
-            <?php if (isset($errorMessage))
-                echo "<p class='errormessage'>$errorMessage</p>"; ?>
+        </section>
+        <?php if (isset($errorMessage))
+            echo "<p class='errormessage'>$errorMessage</p>"; ?>
 
-        <?php endif; ?>
+    <?php endif; ?>
 
-        <?php include 'website-components/footer.php'; ?>
+    <?php include 'website-components/footer.php'; ?>
 
-    </body>
-=======
 </body>
->>>>>>> 81e8631 (Apply formatting/fixes to sql and website)
 
 </html>
