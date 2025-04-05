@@ -114,8 +114,6 @@ $buildDatabaseText = str_replace("'", "\'", str_replace('"', "'", str_replace("\
                 } catch (PDOException $e) {
                 echo "<span style='color: red;'>Error executing query: " . htmlspecialchars($e->getMessage()) . "</span>";
                 }
-            } else {
-                echo "<script type='text/javascript'>alert('Please enter a query.')</script>";
             }
             }
             ?>
