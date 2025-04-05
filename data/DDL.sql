@@ -129,4 +129,3 @@ DELIMITER ;
 
 -- Now you can call the procedure like this:
 CALL AddProduct('Philips A1', 1, 20.00);
-

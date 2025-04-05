@@ -37,11 +37,37 @@ if (!isset($_COOKIE['isLoggedIn']) || $_COOKIE['isLoggedIn'] === false) {
         echo $item;
 
     }
+  
+            if (!in_array($_GET['product'], $_SESSION['shoppingCart'])) {
+
+                $productName = ucwords( str_replace( ['-', '_'], ' ', $_GET['product'] ) );
+                $_SESSION['shoppingCart'][$productName] = 1;
+            }
 
     ?>
 
-    <?php include 'website-components/footer.php'; ?>
 
+</body>
+
+        <div>
+
+            <form method="POST" action="?step=payment">
+
+                <?php foreach ($_SESSION['shoppingCart'] as $productName => $item): ?>
+
+                    <input type="text" name="count" value="<?php echo $item; ?>">
+                    <label class="product-name"><?php echo $productName; ?></label>
+
+                <?php endforeach; ?>
+
+                <input type="submit" name="submit" value="Bestellen">
+
+            </form>
+
+        </div>
+        
+        <?php include 'website-components/footer.php'; ?>
+  
 </body>
 
 </html>

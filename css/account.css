@@ -1,0 +1,9 @@
+.value {
+    color: rgb(5, 5, 5);
+}
+
+.Edit {
+    cursor: pointer;
+    color: red;
+    margin-left: 40px;
+}

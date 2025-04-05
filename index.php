@@ -1,3 +1,12 @@
+<?php
+
+    session_start();
+    if (!isset($_SESSION['rootPath'])) {
+        $_SESSION['rootPath'] = dirname(__FILE__);
+    }
+
+?>
+
 <!DOCTYPE html>
 <html lang="nl">
 
