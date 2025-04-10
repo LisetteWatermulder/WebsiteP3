@@ -13,21 +13,26 @@ SET FOREIGN_KEY_CHECKS=1;
 
 CREATE TABLE
     IF NOT EXISTS `Supplier` (
+        `SupplierName` VARCHAR(40) PRIMARY KEY,
         `Address` VARCHAR(80),
         `Country` VARCHAR(50),
         `SalesPerson` VARCHAR(40),
-        `SupplierName` VARCHAR(40) PRIMARY KEY, 
         `PhoneNumber` VARCHAR(30)
-        -- Supplier naam kan veranderen en is dus geen goede primary key
-        -- `Supplierid` INT PRIMARY KEY AUTO_INCREMENT, -- Dit is een auto increment en kan dus niet veranderen, maar is niet uniek in de database
     );
 
 CREATE TABLE
     IF NOT EXISTS `Product` (
+        `ProductName` VARCHAR(50) PRIMARY KEY,
         `Availability` TINYINT (1),
         `Price` DECIMAL(10, 2),
-        `ProductName` VARCHAR(50) PRIMARY KEY,
-        `Status` VARCHAR(50),
+        `Status` ENUM (
+            "Available",
+            "Broken",
+            "Battery Empty",
+            "In Repair",
+            "Stolen",
+            "In Use"
+        ),
         `Description` VARCHAR(50),
         -- Foreign Keys
         `ProviderName` VARCHAR(50),
@@ -61,21 +66,22 @@ CREATE TABLE
         ),
         -- Foreign Key
         `PreferredLocationName` VARCHAR(50),
+        -- Primary Key
         PRIMARY KEY (`UserName`, `Address`)
     );
 
 CREATE TABLE
     IF NOT EXISTS `Order` (
+        `ReferenceNumber` VARCHAR(20) PRIMARY KEY,
         `Date` DATE,
         `OpenBalance` VARCHAR(20),
         `PaymentMethod` VARCHAR(20),
-        `ReferenceNumber` VARCHAR(20) PRIMARY KEY,
         `Status` ENUM (
-            "Betaling Voltooid",
-            "Betaling Geweigerd",
-            "Betaling In Behandeling",
-            "Opgehaald",
-            "Voltooid"
+            "Payment Completed",
+            "Payment Declined",
+            "Payment Processing",
+            "Picked Up",
+            "Completed"
         ),
         `TotalPrice` DECIMAL(10, 2),
         -- Foreign Keys
@@ -87,12 +93,13 @@ CREATE TABLE
 CREATE TABLE
     IF NOT EXISTS `Order_Product` (
         `ProductName` VARCHAR(50),
-        `Quantity` INT,
         `ReferenceNumber` VARCHAR(20),
+        `Quantity` INT,
         PRIMARY KEY (`ProductName`, `ReferenceNumber`)
     );
     
-    
+
+-- Because of error, these constraints are added to the tables after the CREATE: (errno: 150 "Foreign key constraint is incorrectly formed")
 ALTER TABLE `Product` 
         ADD CONSTRAINT FK_Product FOREIGN KEY (`ProviderName`) REFERENCES Supplier (`SupplierName`) ON UPDATE CASCADE,
         ADD CONSTRAINT FK_StoredLocation FOREIGN KEY (`StoredLocationName`) REFERENCES Location (`ChargingStationName`) ON UPDATE CASCADE;
@@ -123,7 +130,7 @@ CREATE PROCEDURE IF NOT EXISTS AddProduct (
     IN Price DECIMAL(10,2)
 )
 BEGIN
-    INSERT INTO Products (
+    INSERT INTO Product (
         ProductName,
         Availability,
         Price
@@ -283,13 +290,20 @@ END //
 DELIMITER ;
 
 DELIMITER //
-CREATE TRIGGER IF NOT EXISTS UpdateProductPrice -- If one product price is changed, change the price of all equal products in the database
-BEFORE UPDATE ON Product FOR EACH ROW
+CREATE TRIGGER IF NOT EXISTS ThrowErrorEmptyUserField
+BEFORE INSERT ON User FOR EACH ROW
 BEGIN
-    IF OLD.Price <> NEW.Price THEN
-        UPDATE Product
-        SET Price = NEW.Price
-        WHERE ProductName = OLD.ProductName;
+    IF (NEW.UserName IS NULL OR NEW.UserName = '') OR
+       (NEW.Address IS NULL OR NEW.Address = '') OR
+       (NEW.Password IS NULL OR NEW.Password = '') OR
+       (NEW.EmailAddress IS NULL OR NEW.EmailAddress = '') OR
+       (NEW.FirstName IS NULL OR NEW.FirstName = '') OR
+       (NEW.LastName IS NULL OR NEW.LastName = '') OR
+       (NEW.PhoneNumber IS NULL OR NEW.PhoneNumber = '') OR
+       (NEW.Role IS NULL)
+    THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'All user fields must be filled in';
     END IF;
 END //
 DELIMITER ;

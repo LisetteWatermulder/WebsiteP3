@@ -59,9 +59,16 @@ $buildDatabaseText = str_replace("'", "\'", str_replace('"', "'", str_replace("\
 </head>
 <body>
     <div>
-        <button onclick="InsertText('query', 'SELECT * FROM `User`;')">Haal gebruikers op</button>
-        <button onclick="InsertText('query', '-- Verander zelf de waarden die tussen vierkante haakjes staan naar de waarde van de nieuwe gebruiker\nINSERT INTO `User` (`UserName`, `Address`, `DateOfBirth`, `EmailAddress`, `FirstName`, `LastName`, `Password`, `PhoneNumber`, `Role`, `PreferredLocationName`) \nVALUES (\'[Gebruikersnaam]\', \'[Straatnaam + huisnummer]\', \'[Geboortedatum (yyyy-MM-dd)]\', \'[E-mailadres]\', \'[Voornaam]\', \'[Achternaam]\', \'[Wachtwoord]\', \'[Telefoonnummer]\', \'[Rol (Admin of niet)]\', \'[Voorkeurslocatie]\');')">Creëer nieuwe gebruiker</button>
+        <button onclick="InsertText('query', '-- Verander zelf de waarden die tussen vierkante haakjes staan naar de waarde van de nieuwe gebruiker\nCALL CreateSupplier(\'[Gebruikersnaam]\', \'[Straatnaam + huisnummer]\', \'[Geboortedatum (yyyy-MM-dd)]\', \'[E-mailadres]\', \'[Voornaam]\', \'[Achternaam]\', \'[Wachtwoord]\', \'[Telefoonnummer]\', \'[Rol (Admin of niet)]\', \'[Voorkeurslocatie]\');')">Creëer nieuwe gebruiker</button>
+        <button onclick="InsertText('query', '-- Verander zelf de waarden die tussen vierkante haakjes staan naar de waarde van de nieuwe gebruiker\nCALL AddProduct(\'[Product Naam]\', [Beschikbaarheid], [Prijs]);')">Creëer nieuw product</button>
+        <button onclick="InsertText('query', '-- Verander zelf de waarden die tussen vierkante haakjes staan naar de waarde van de nieuwe gebruiker\nCALL CreateSupplier(\'[Naam Leverancier]\', \'[Adres]\', \'[Land]\', \'[Verkoopcontact]\', \'[Telefoonnummer]\');')">Creëer nieuwe leverancier</button>
+        <button onclick="InsertText('query', '-- Verander zelf de waarden die tussen vierkante haakjes staan naar de waarde van de nieuwe gebruiker\nCALL CreateSupplier(\'[Bestaande Product Naam]\', [Beschikbaarheid], [Prijs]);')">Update voorraad</button>
+        <button onclick="InsertText('query', '-- Verander zelf de waarden die tussen vierkante haakjes staan naar de waarde van de nieuwe gebruiker\INSERT INTO `Order` (ReferenceNumber, Date, TotalPrice) VALUES (\'[Referentienummer]\', \'[Datum]\', [Totaalprijs]);')">Creëer nieuwe bestelling</button>
         <button onclick="InsertText('query', '-- Verander zelf de waarden die tussen vierkante haakjes staan naar de waarde van de nieuwe gebruiker\nINSERT INTO `Product` (`ProductName`, `Availability`, `Price`, `Status`, `Description`, `ProviderName`, `StoredLocationName`) \nVALUES (\'[Productnaam]\', [Beschikbaarheid], [Prijs (met punt als komma], \'[Status]\', \'[HTML beschrijving]\', \'[Naam provider]\', \'[Locatie]\');')">Nieuwe locatie</button>
+        <button onclick="InsertText('query', 'SELECT * FROM `User`;')">Haal gebruikers op</button>
+        <button onclick="InsertText('query', 'SELECT * FROM `Product`;')">Haal producten op</button>
+        <button onclick="InsertText('query', 'SELECT * FROM `Supplier`;')">Haal leveranciers op</button>
+        <button onclick="InsertText('query', '-- Verander zelf de waarden die tussen vierkante haakjes staan naar de waarde van de nieuwe gebruiker\nCALL GenerateSalesReport(\'[Begindatum]\', \'[Einddatum]\');')">Genereer verkooprapport</button>
         <button onclick="InsertText('query', '-- Verander zelf de gebruikersnaam die tussen vierkante haakjes staan naar de waarde van de nieuwe gebruiker\nDELETE FROM `User` WHERE UserName = \'[Gebruikersnaam]\';')">Verwijder gebruiker</button>
         <button onclick="InsertText('query', '<?php echo $buildDatabaseText; ?>')">Creëer database</button>
     </div>
@@ -111,7 +118,7 @@ $buildDatabaseText = str_replace("'", "\'", str_replace('"', "'", str_replace("\
                     echo "<span style='color: green;'>Query executed successfully</span>";
                 }
                 } catch (PDOException $e) {
-                echo "<span style='color: red;'>Error executing query: " . htmlspecialchars($e->getMessage()) . "</span>";
+                    echo "<span style='color: red;'>Error executing query: " . htmlspecialchars($e->getMessage()) . "</span>";
                 }
             }
             ?>
