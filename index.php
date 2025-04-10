@@ -82,8 +82,7 @@ $buildDatabaseText = str_replace("'", "\'", str_replace('"', "'", str_replace("\
         <h2>Output:</h2>
         <div class="result-box">
             <?php
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            if (!empty($_POST['query'])) {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['query'])) {
                 $query = $_POST['query'];
 
                 try {
@@ -114,7 +113,6 @@ $buildDatabaseText = str_replace("'", "\'", str_replace('"', "'", str_replace("\
                 } catch (PDOException $e) {
                 echo "<span style='color: red;'>Error executing query: " . htmlspecialchars($e->getMessage()) . "</span>";
                 }
-            }
             }
             ?>
         </div>
