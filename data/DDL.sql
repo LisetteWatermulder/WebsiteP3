@@ -271,7 +271,7 @@ BEFORE UPDATE ON Product FOR EACH ROW
 BEGIN
     DECLARE currentStock INT;
     SELECT Availability INTO currentStock FROM Product WHERE ProductName = NEW.ProductName;
-    IF NEW.Availability <= 1 THEN
+    IF NEW.Availability < 0 THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Stock cannot be negative';
     END IF;
 END //
