@@ -59,17 +59,17 @@ $buildDatabaseText = str_replace("'", "\'", str_replace('"', "'", str_replace("\
 </head>
 <body>
     <div>
-        <button onclick="InsertText('query', '-- Verander zelf de waarden die tussen vierkante haakjes staan naar de waarde van de nieuwe gebruiker\nCALL CreateSupplier(\'[Gebruikersnaam]\', \'[Straatnaam + huisnummer]\', \'[Geboortedatum (yyyy-MM-dd)]\', \'[E-mailadres]\', \'[Voornaam]\', \'[Achternaam]\', \'[Wachtwoord]\', \'[Telefoonnummer]\', \'[Rol (Admin of niet)]\', \'[Voorkeurslocatie]\');')">Creëer nieuwe gebruiker</button>
-        <button onclick="InsertText('query', '-- Verander zelf de waarden die tussen vierkante haakjes staan naar de waarde van de nieuwe gebruiker\nCALL AddProduct(\'[Product Naam]\', [Beschikbaarheid], [Prijs]);')">Creëer nieuw product</button>
-        <button onclick="InsertText('query', '-- Verander zelf de waarden die tussen vierkante haakjes staan naar de waarde van de nieuwe gebruiker\nCALL CreateSupplier(\'[Naam Leverancier]\', \'[Adres]\', \'[Land]\', \'[Verkoopcontact]\', \'[Telefoonnummer]\');')">Creëer nieuwe leverancier</button>
-        <button onclick="InsertText('query', '-- Verander zelf de waarden die tussen vierkante haakjes staan naar de waarde van de nieuwe gebruiker\nCALL CreateSupplier(\'[Bestaande Product Naam]\', [Beschikbaarheid], [Prijs]);')">Update voorraad</button>
-        <button onclick="InsertText('query', '-- Verander zelf de waarden die tussen vierkante haakjes staan naar de waarde van de nieuwe gebruiker\nINSERT INTO `Order` (ReferenceNumber, Date, TotalPrice) VALUES (\'[Referentienummer]\', \'[Datum]\', [Totaalprijs]);')">Creëer nieuwe bestelling</button>
-        <button onclick="InsertText('query', '-- Verander zelf de waarden die tussen vierkante haakjes staan naar de waarde van de nieuwe gebruiker\nINSERT INTO `Product` (`ProductName`, `Availability`, `Price`, `Status`, `Description`, `ProviderName`, `StoredLocationName`) \nVALUES (\'[Productnaam]\', [Beschikbaarheid], [Prijs (met punt als komma], \'[Status]\', \'[HTML beschrijving]\', \'[Naam provider]\', \'[Locatie]\');')">Nieuwe locatie</button>
+        <button onclick="InsertText('query', 'CALL CreateUser(\'j.doe\', \'Nowhere 4\', \'$2y$10$5BM1s.ZBEMqSltCPbIQb9erKxx5ac4xJgFg0MEderCt7XAolwW8wW\', \'1990-01-01\', \'j.doe@gmail.com\', \'John\', \'Doe\', \'06-01234567\', \'User\');')">Creëer nieuwe gebruiker</button>
+        <button onclick="InsertText('query', 'CALL AddProduct(\'PlayGreen4\', 1, 8.00);')">Creëer nieuw product</button>
+        <button onclick="InsertText('query', 'CALL CreateSupplier(\'Samsung Electronics\', \'Evert van de Beekstraat 310\', \'Nederland\', \'Jan Broekhuyzen\', \'06-86305474\');')">Creëer nieuwe leverancier</button>
+        <button onclick="InsertText('query', 'CALL UpdateStock(\'PlayGreen3\', \'PlayGreen3\', 1);')">Update voorraad</button>
+        <button onclick="InsertText('query', 'INSERT INTO `Order` (ReferenceNumber, Date, TotalPrice) VALUES (\'00112233\', \'2025-04-17\', 8.00);')">Creëer nieuwe bestelling</button>
+        <button onclick="InsertText('query', 'INSERT INTO `Location` (`ChargingStationName`, `LocationName`, `LocationAddress`) \nVALUES (\'Den Bosch Centraal\', \'Den Bosch Centraal\', \'Stationsplein 147\');')">Nieuwe locatie</button>
         <button onclick="InsertText('query', 'SELECT * FROM `User`;')">Haal gebruikers op</button>
         <button onclick="InsertText('query', 'SELECT * FROM `Product`;')">Haal producten op</button>
         <button onclick="InsertText('query', 'SELECT * FROM `Supplier`;')">Haal leveranciers op</button>
-        <button onclick="InsertText('query', '-- Verander zelf de waarden die tussen vierkante haakjes staan naar de waarde van de nieuwe gebruiker\nCALL GenerateSalesReport(\'[Begindatum]\', \'[Einddatum]\');')">Genereer verkooprapport</button>
-        <button onclick="InsertText('query', '-- Verander zelf de gebruikersnaam die tussen vierkante haakjes staan naar de waarde van de nieuwe gebruiker\nDELETE FROM `User` WHERE UserName = \'[Gebruikersnaam]\';')">Verwijder gebruiker</button>
+        <button onclick="InsertText('query', 'CALL GenerateSalesReport(\'2025-01-01\', \'2025-12-31\');')">Genereer verkooprapport</button>
+        <button onclick="InsertText('query', 'DELETE FROM `User` WHERE UserName = \'j.doe\';')">Verwijder gebruiker</button>
         <button onclick="InsertText('query', '<?php echo $buildDatabaseText; ?>')">Creëer database</button>
     </div>
     <div class="form-container">
